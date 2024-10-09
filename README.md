@@ -9,7 +9,7 @@ Quiz is a little demo application!
 
 ## Getting Started
 
-1. Clone the project.
+1. Clone the repo.
 2. To start the project, run this command `make start`
 3. It's also necessary to tighten up the right dependencies `make install`
 4. Next, you need to run the migrations `make migration`
