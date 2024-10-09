@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container mt-4">
+        <div id="first_screen" class="card">
+            <div class="card-body">
+                <h3>Здравствуйте!</h3>
+                <button id="start_button" type="button" class="btn btn-warning">Начать тест</button>
+            </div>
+        </div>
+        <form id="quiz__form" action="/add" method="post">
+            {% for question in questions %}
+                <div class="card d-none question-container">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <p>Вопрос № {{ loop.index }}</p>
+                            <p class="fw-bold text-success">{{ question.title }}</p>
+                            {% for choice in question.choices %}
+                                <label>
+                                    <input type="checkbox" name="choices[]" value="{{ choice.id }}">
+                                </label> {{ choice.title }}<br>
+                            {% endfor %}
+                        </div>
+
+                        {% if not loop.first %}
+                            <button id="back_button" type="button" class="back_button mt-4 btn btn-warning">Назад</button>
+                        {% endif %}
+
+                        {% if loop.last %}
+                            <button type="submit" class="mt-4 btn btn-warning">Закончить тест</button>
+                        {% else %}
+                            <button type="button" class="next_button mt-4 btn btn-warning">Дальше</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('add-item') }}">
+        </form>
+
+        <div id="error_alert" class="mt-5 alert alert-danger d-none" role="alert">
+            <div>Вы ничего не выбрали!</div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('quiz/js/quiz.js') }}"></script>
+{% endblock %}

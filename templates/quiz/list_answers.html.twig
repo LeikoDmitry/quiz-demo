@@ -1,0 +1,16 @@
+{% if answers|length > 0 %}
+    {% for answer in answers %}
+        <h5><ins>Вопрос: {{ answer.question.title }}</ins></h5>
+        <p class="mb-1">Ответы:</p>
+        {% for choice in answer.choices %}
+            <p class="mb-1">
+                {{ choice.title }} - <i class="bi bi-{{ choice.isCorrect ? 'emoji-smile-fill text-warning' : 'emoji-frown-fill text-danger' }} result-icon"></i>
+            </p>
+        {% endfor %}
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <p>Ответов нет</p>
+{% endif %}

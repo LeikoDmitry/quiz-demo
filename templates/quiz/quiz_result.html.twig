@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% if quizStatistic %}
+        <div class="card">
+            <div class="card-body">
+                <p>Всего вопросов: {{ quizStatistic.getCountAnswers }}</p>
+                <p>Правильные: {{ quizStatistic.getCorrectAnswers|length }}</p>
+                <p>Неправильные: {{ quizStatistic.getWrongAnswers|length}}</p>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Правильно: </h4>
+                        {% include 'quiz/list_answers.html.twig' with {'answers' : quizStatistic.getCorrectAnswers} %}
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h4>Неправильно: </h4>
+                        {% include 'quiz/list_answers.html.twig' with {'answers' : quizStatistic.getWrongAnswers} %}
+                    </div>
+                </div>
+
+                <a href="/" class="btn btn-warning mt-4">На главную</a>
+            </div>
+        </div>
+    {% else %}
+        <p>Ничего не найдено</p>
+    {% endif %}
+{% endblock %}
